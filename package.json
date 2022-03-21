@@ -5,9 +5,8 @@
   "main": "Backend/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node Backend/server.js",
-    "dev":"nodemon Backend/server.js"
-
+    "start": "node Backend/server.js",
+    "dev": "nodemon Backend/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +14,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.7",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
   }
 }
