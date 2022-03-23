@@ -24,5 +24,11 @@ router.delete(
   productController.deleteProduct
 )
 router.get('/read/:id', productController.getProductDetails)
-
+router.put(
+  '/create/review',
+  isAuthenticatedUser,
+  productController.createProductReview
+)
+router.get('/reviews', productController.getAllProductReviews)
+router.delete('/reviews', isAuthenticatedUser, productController.deleteReview)
 module.exports = router
