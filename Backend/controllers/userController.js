@@ -158,6 +158,7 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     email: req.body.email,
   }
 
+  //will use cloudnary
   const user = await User.findByIdAndUpdate(req.user.id, newUser, {
     new: true,
     runValidators: true,
@@ -192,20 +193,6 @@ exports.getUser = catchAsyncError(async (req, res, next) => {
     user,
   })
 })
-exports.updateProfile = catchAsyncError(async (req, res, next) => {
-  const newUser = {
-    name: req.body.name,
-    email: req.body.email,
-    role: req.body.role,
-  }
-  const user = await User.findByIdAndUpdate(req.user.id, newUser, {
-    runValidators: true,
-    new: true,
-  })
-  res.status(200).json({
-    success: true,
-  })
-})
 
 //admin update user Role
 exports.updateUserRole = catchAsyncError(async (req, res, next) => {
@@ -223,6 +210,7 @@ exports.updateUserRole = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    message: 'User Role is Updated Successfully',
   })
 })
 
@@ -238,5 +226,6 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
   await user.remove()
   res.status(200).json({
     success: true,
+    message: 'User Deleted Successfully',
   })
 })
