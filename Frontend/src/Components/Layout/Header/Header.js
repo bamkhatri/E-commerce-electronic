@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { ReactNavbar } from 'overlay-navbar'
+// import { ReactNavbar } from 'overlay-navbar'
 import logo from '../../../image/logo.png'
 import profile from '../../../image/profile.png'
 import './Header.css'
 import { Link } from 'react-router-dom'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import MenuIcon from '@mui/icons-material/Menu'
+
 const Header = () => {
   const [show, setShow] = useState(false)
   console.log(show, 'show')

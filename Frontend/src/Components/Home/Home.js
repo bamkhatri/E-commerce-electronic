@@ -10,9 +10,7 @@ import { toast } from 'react-toastify'
 
 const Home = () => {
   const dispatch = useDispatch()
-  const { products, loading, error, productsCount } = useSelector(
-    (state) => state.products
-  )
+  const { products, loading, error } = useSelector((state) => state.products)
 
   useEffect(() => {
     if (error) {
