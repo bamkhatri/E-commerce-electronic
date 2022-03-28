@@ -55,7 +55,7 @@ const Header = () => {
           <span>Home</span>
         </Link>
         <Link className='itemLinks' to='/products'>
-          <span>Product</span>
+          <span>Products</span>
         </Link>
         <Link className='itemLinks' to='/about'>
           <span>About Us</span>
