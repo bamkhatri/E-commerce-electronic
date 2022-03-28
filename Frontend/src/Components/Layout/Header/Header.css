@@ -1,0 +1,136 @@
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  background-color: #fff;
+}
+
+.navbarLeft {
+  flex: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logoLink > img {
+  width: 150px;
+  height: 50px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.navbarMiddle {
+  flex: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobileList {
+  display: none;
+}
+.itemLinks {
+  text-decoration: none;
+  color: rgb(71, 66, 66);
+  margin: 1vmax;
+}
+.itemLinks > span {
+  font-size: 'Roboto';
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 10px;
+}
+.itemLinks > span:hover {
+  background-color: #eb4034;
+  color: white;
+  transition: all 0.5s ease-in-out;
+}
+.navbarRight {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.iconLinks {
+  font-weight: 600;
+  color: rgb(71, 66, 66);
+  text-decoration: none;
+  padding: 10px;
+  margin: 1vmax;
+}
+.iconLinks > i {
+  font-weight: 600;
+  color: rgb(71, 66, 66);
+}
+.hello {
+  display: none;
+}
+.iconLinks > img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.burger {
+  display: none;
+}
+.mobileMenu {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .mobileView {
+    display: flex;
+
+    justify-content: space-between;
+    height: 35vh;
+    background-color: #fff;
+  }
+  .logoLink > img {
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 50px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .navbarLeft {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .navbarMiddle {
+    display: none;
+  }
+  .mobileList {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .navbarRight {
+    display: none;
+  }
+  .itemLinks {
+    text-decoration: none;
+    color: rgb(71, 66, 66);
+  }
+  .itemLinks > span {
+    font-size: 'Roboto';
+    text-transform: uppercase;
+    font-weight: 400;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .itemLinks > span:hover {
+    background-color: #eb4034;
+    color: white;
+    transition: all 0.5s ease-in-out;
+  }
+  .hello {
+    display: none;
+  }
+
+  .burger {
+    display: block;
+    margin-right: 10px;
+  }
+}
