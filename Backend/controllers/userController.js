@@ -21,7 +21,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
 })
 
 //Login User
-exports.loginUser = catchAsyncError(async (req, res, nexk) => {
+exports.loginUser = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body
 
   if (!email || !password) {
@@ -29,11 +29,11 @@ exports.loginUser = catchAsyncError(async (req, res, nexk) => {
   }
   const user = await User.findOne({ email }).select('+password')
   if (!user) {
-    return new ErrorHandler('Invalid Email or Password', 401)
+    return next(new ErrorHandler('Invalid Email or Password', 401))
   }
-  const isPasswordMatch = user.comparePassword(password)
+  const isPasswordMatch = await user.comparePassword(password)
   if (!isPasswordMatch) {
-    return new ErrorHandler('Invalid Email or Password')
+    return next(new ErrorHandler('Invalid Email or Password'))
   }
   sendToken(user, 200, res)
 })

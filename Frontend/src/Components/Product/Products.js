@@ -2,17 +2,31 @@ import React, { Fragment, useEffect, useState } from 'react'
 import './Products.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearErrors, getProduct } from '../../actions/productAction'
+import { toast } from 'react-toastify'
 import Loader from '../Layout/Loader/Loader'
 import ProductCard from '../Home/ProductCard'
 import { useParams } from 'react-router-dom'
 import Pagination from 'react-js-pagination'
 import Slider from '@mui/material/Slider'
 import { Typography } from '@mui/material'
+import MetaData from '../Layout/MataData'
+
+const categories = [
+  'Laptop',
+  'Footwear',
+  'Bottom',
+  'Tops',
+  'Camera',
+  'Smartphones',
+  'Watch',
+]
 
 const Products = () => {
   const { keyword } = useParams()
   const [currentPage, setCurrentPage] = useState(1)
   const [price, setPrice] = useState([0, 200000])
+  const [category, setCategory] = useState('')
+  const [ratings, setRatings] = useState(0)
 
   const {
     products,
@@ -33,8 +47,14 @@ const Products = () => {
   }
 
   useEffect(() => {
-    dispatch(getProduct(keyword, currentPage, price))
-  }, [dispatch, keyword, currentPage, price])
+    if (error) {
+      toast.error(error, {
+        position: 'top-right',
+      })
+      dispatch(clearErrors())
+    }
+    dispatch(getProduct(keyword, currentPage, price, category, ratings))
+  }, [dispatch, keyword, currentPage, price, category, ratings])
   let count = filteredProductsCount
   return (
     <Fragment>
@@ -42,6 +62,7 @@ const Products = () => {
         <Loader />
       ) : (
         <>
+          <MetaData title='PRODUCTS -- Ecommerce' />
           <h2 className='productHeadings'>Products</h2>
           <div className='products'>
             {products &&
@@ -59,8 +80,33 @@ const Products = () => {
               min={0}
               max={200000}
             ></Slider>
+
+            <Typography>Categories</Typography>
+            <ul className='categoryBox'>
+              {categories.map((category) => (
+                <li
+                  className='category-link'
+                  key={category}
+                  onClick={() => setCategory(category)}
+                >
+                  {category}
+                </li>
+              ))}
+            </ul>
+            <fieldset>
+              <Typography component='legend'>Ratings Above</Typography>
+              <Slider
+                value={ratings}
+                onChange={(e, newValue) => setRatings(newValue)}
+                valueLabelDisplay='auto'
+                aria-labelledby='continuous-slider'
+                min={0}
+                max={5}
+              ></Slider>
+            </fieldset>
           </div>
-          {resultPerPage < filteredProductsCount && (
+
+          {resultPerPage < count && (
             <div className='paginationBox'>
               <Pagination
                 activePage={currentPage}

@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   padding: 2vmax;
-  margin-top: 10vmax;
+  margin-top: 19.5vmax;
   color: white;
   background-color: rgb(34, 35, 33);
 }
@@ -63,12 +63,17 @@
   color: #eb4034;
 }
 @media screen and (max-width: 600px) {
+  .footer {
+    margin-top: 11.5vmax;
+  }
   .leftFooter > h4 {
     font-family: 'Roboto';
     font-size: 14px;
   }
   .leftFooter > p {
     font-size: 12px;
+    margin: 1vmax 0;
+    text-align: left;
   }
   .middleFooter > h1 {
     font-weight: bold;
