@@ -62,7 +62,7 @@ const Products = () => {
         <Loader />
       ) : (
         <>
-          <MetaData title='PRODUCTS -- Ecommerce' />
+          <MetaData title='PRODUCTS -- ECOMMERCE' />
           <h2 className='productHeadings'>Products</h2>
           <div className='products'>
             {products &&

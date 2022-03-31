@@ -4,17 +4,16 @@ import Loader from '../Layout/Loader/Loader'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import FaceIcon from '@mui/icons-material/Face'
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined'
-import { Link } from 'react-router-dom'
-import { clearErrors, login } from '../../actions/userAction'
+import { Link, useNavigate } from 'react-router-dom'
+import { clearErrors, login, register } from '../../actions/userAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 const LoginSignup = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const { user, loading, error, isAuthenticated } = useSelector(
-    (state) => state.user
-  )
+  const { loading, error, isAuthenticated } = useSelector((state) => state.user)
 
   const loginTab = useRef(null)
   const registerTab = useRef(null)
@@ -52,7 +51,10 @@ const LoginSignup = () => {
       toast.error(error)
       dispatch(clearErrors())
     }
-  }, [error])
+    if (isAuthenticated) {
+      navigate('/account')
+    }
+  }, [error, isAuthenticated, navigate, dispatch])
 
   const loginSubmit = (e) => {
     e.preventDefault()
@@ -67,7 +69,7 @@ const LoginSignup = () => {
     myForm.set('email', email)
     myForm.set('password', password)
     myForm.set('avatar', avatar)
-    console.log('Register submitted!')
+    dispatch(register(myForm))
   }
 
   const switchTabs = (e, tab) => {

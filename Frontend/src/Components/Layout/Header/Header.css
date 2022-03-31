@@ -77,9 +77,11 @@
   display: none;
 }
 @media screen and (max-width: 600px) {
+  .navContainer {
+    height: 70px;
+  }
   .mobileView {
     display: flex;
-
     justify-content: space-between;
     height: 35vh;
     background-color: #fff;
