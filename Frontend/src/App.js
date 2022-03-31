@@ -10,23 +10,39 @@ import ProductDetails from './Components/ProductDetails/ProductDetails'
 import Search from './Components/Search/Search'
 import Products from './Components/Product/Products'
 import LoginSignup from './Components/User/LoginSignup'
-const BaseLayout = ({ children }) => {
-  return (
-    <div>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-    </div>
-  )
-}
+import store from './store'
+import { loadUser } from './actions/userAction'
+import { useSelector } from 'react-redux'
+import UserOptions from './Components/Layout/Header/UserOptions'
 
 function App() {
+  const { isAuthenticated, user } = useSelector((state) => state.user)
+  const BaseLayout = ({ children }) => {
+    return (
+      <div>
+        <Header />
+        {isAuthenticated && <UserOptions user={user} />}
+        <main>{children}</main>
+        <Footer />
+      </div>
+    )
+  }
+  const SearchLayout = ({ children }) => {
+    return (
+      <div>
+        <Header />
+        {isAuthenticated && <UserOptions user={user} />}
+        <main>{children}</main>
+      </div>
+    )
+  }
   useEffect(() => {
     Webfront.load({
       google: {
         families: ['Roboto', 'Droid Sans', 'Chilanka'],
       },
     })
+    store.dispatch(loadUser())
   }, [])
   return (
     <BrowserRouter>
@@ -65,12 +81,21 @@ function App() {
             </BaseLayout>
           }
         />
+
+        <Route
+          path='/account'
+          element={
+            <SearchLayout>
+              <Search />
+            </SearchLayout>
+          }
+        />
         <Route
           path='/search'
           element={
-            <BaseLayout>
+            <SearchLayout>
               <Search />
-            </BaseLayout>
+            </SearchLayout>
           }
         />
         <Route path='/login' element={<LoginSignup />} />

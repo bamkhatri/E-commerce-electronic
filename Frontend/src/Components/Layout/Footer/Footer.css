@@ -63,9 +63,6 @@
   color: #eb4034;
 }
 @media screen and (max-width: 600px) {
-  .footer {
-    margin-top: 11.5vmax;
-  }
   .leftFooter > h4 {
     font-family: 'Roboto';
     font-size: 14px;

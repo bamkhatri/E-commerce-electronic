@@ -39,3 +39,15 @@
 .searchButton:hover {
   background-color: lightblue;
 }
+@media screen and (max-width: 600px) {
+  .searchBox {
+    z-index: -1;
+  }
+
+  .searchBox > input {
+    width: 56%;
+  }
+  .searchButton {
+    width: 20%;
+  }
+}
