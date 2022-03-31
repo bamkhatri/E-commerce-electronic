@@ -1,12 +1,16 @@
-const { json } = require('body-parser')
 const express = require('express')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
+
+const bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload')
 
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(morgan('combined'))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(fileUpload())
 
 //import product routes
 const product = require('./routes/productRoute')
