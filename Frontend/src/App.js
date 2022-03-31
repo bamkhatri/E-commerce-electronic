@@ -9,6 +9,7 @@ import Home from './Components/Home/Home'
 import ProductDetails from './Components/ProductDetails/ProductDetails'
 import Search from './Components/Search/Search'
 import Products from './Components/Product/Products'
+import LoginSignup from './Components/User/LoginSignup'
 const BaseLayout = ({ children }) => {
   return (
     <div>
@@ -72,6 +73,7 @@ function App() {
             </BaseLayout>
           }
         />
+        <Route path='/login' element={<LoginSignup />} />
       </Routes>
     </BrowserRouter>
   )
