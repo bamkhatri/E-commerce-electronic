@@ -65,7 +65,7 @@ const UserOptions = ({ user }) => {
             icon={item.icon}
             tooltipTitle={item.name}
             onClick={item.func}
-            key={item.icon}
+            key={item.name}
           />
         ))}
       </SpeedDial>
