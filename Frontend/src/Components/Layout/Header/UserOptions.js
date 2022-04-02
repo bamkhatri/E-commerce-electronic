@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../actions/userAction'
 import { toast } from 'react-toastify'
+import profile from '../../../image/profile.png'
 
 const UserOptions = ({ user }) => {
   const navigate = useNavigate()
@@ -54,7 +55,7 @@ const UserOptions = ({ user }) => {
         icon={
           <img
             className='speedDialIcon'
-            src={user.avatar.url ? user.avatar.url : '/profile.png'}
+            src={user.avatar.url ? user.avatar.url : profile}
             alt='Profile'
           />
         }
