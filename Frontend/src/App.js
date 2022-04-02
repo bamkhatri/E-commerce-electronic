@@ -17,25 +17,7 @@ import UserOptions from './Components/Layout/Header/UserOptions'
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user)
-  const BaseLayout = ({ children }) => {
-    return (
-      <div>
-        <Header />
-        {isAuthenticated && <UserOptions user={user} />}
-        <main>{children}</main>
-        <Footer />
-      </div>
-    )
-  }
-  const SearchLayout = ({ children }) => {
-    return (
-      <div>
-        <Header />
-        {isAuthenticated && <UserOptions user={user} />}
-        <main>{children}</main>
-      </div>
-    )
-  }
+
   useEffect(() => {
     Webfront.load({
       google: {
@@ -46,60 +28,18 @@ function App() {
   }, [])
   return (
     <BrowserRouter>
+      <Header />
+      {isAuthenticated && <UserOptions user={user} />}
       <Routes>
-        <Route
-          exact
-          path='/'
-          element={
-            <BaseLayout>
-              <Home />
-            </BaseLayout>
-          }
-        />
-        <Route
-          path='/read/:id'
-          element={
-            <BaseLayout>
-              <ProductDetails />
-            </BaseLayout>
-          }
-        />
-        <Route
-          exact
-          path='/products'
-          element={
-            <BaseLayout>
-              <Products />
-            </BaseLayout>
-          }
-        />
-        <Route
-          path='/products/:keyword'
-          element={
-            <BaseLayout>
-              <Products />
-            </BaseLayout>
-          }
-        />
-
-        <Route
-          path='/account'
-          element={
-            <SearchLayout>
-              <Search />
-            </SearchLayout>
-          }
-        />
-        <Route
-          path='/search'
-          element={
-            <SearchLayout>
-              <Search />
-            </SearchLayout>
-          }
-        />
+        <Route exact path='/' element={<Home />} />
+        <Route path='/read/:id' element={<ProductDetails />} />
+        <Route exact path='/products' element={<Products />} />
+        <Route path='/products/:keyword' element={<Products />} />
+        <Route path='/account' element={<Search />} />
+        <Route path='/search' element={<Search />} />
         <Route path='/login' element={<LoginSignup />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }
