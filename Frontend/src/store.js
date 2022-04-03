@@ -5,11 +5,17 @@ import {
   productsDetailsReducer,
   productsReducer,
 } from './reducers/productReducer'
-import { userReducer } from './reducers/userReducer'
+import {
+  profileImageReducer,
+  profileReducer,
+  userReducer,
+} from './reducers/userReducer'
 const reducer = combineReducers({
   products: productsReducer,
   productDetail: productsDetailsReducer,
   user: userReducer,
+  profile: profileReducer,
+  profileImage: profileImageReducer,
 })
 
 let initialState = {}

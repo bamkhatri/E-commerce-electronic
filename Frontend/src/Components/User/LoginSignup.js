@@ -137,7 +137,7 @@ const LoginSignup = () => {
                   <FaceIcon />
                   <input
                     type='text'
-                    placeholder='name'
+                    placeholder='Full Name'
                     required
                     name='name'
                     value={name}

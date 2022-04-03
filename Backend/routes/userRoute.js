@@ -11,6 +11,11 @@ router.get('/me', isAuthenticatedUser, userController.getUserDetails)
 router.get('/logout', userController.logoutUser)
 router.put('/me/password', isAuthenticatedUser, userController.updatePassword)
 router.put('/me/update', isAuthenticatedUser, userController.updateProfile)
+router.put(
+  '/me/update/profile',
+  isAuthenticatedUser,
+  userController.updateProfileImage
+)
 router.get(
   '/admin/user',
   isAuthenticatedUser,

@@ -160,13 +160,11 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
 
 //Update profile
 exports.updateProfile = catchAsyncError(async (req, res, next) => {
-  const newUser = {
+  const newUserData = {
     name: req.body.name,
     email: req.body.email,
   }
-
-  //will use cloudnary
-  const user = await User.findByIdAndUpdate(req.user.id, newUser, {
+  await User.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -174,7 +172,41 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    user,
+  })
+})
+//To update Image
+exports.updateProfileImage = catchAsyncError(async (req, res, next) => {
+  const newUserData = {}
+
+  if (req.body.avatar !== '') {
+    const user = await User.findById(req.user.id)
+
+    const imageId = user.avatar.publicId
+
+    console.log(imageId, 'Image Id')
+
+    await cloudnary.v2.uploader.destroy(imageId)
+
+    const myCloud = await cloudnary.v2.uploader.upload(req.body.avatar, {
+      folder: 'avatars',
+      width: 150,
+      crop: 'scale',
+    })
+
+    newUserData.avatar = {
+      publicId: myCloud.public_id,
+      url: myCloud.secure_url,
+    }
+  }
+
+  await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  })
+
+  res.status(200).json({
+    success: true,
   })
 })
 
