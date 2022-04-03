@@ -10,6 +10,13 @@ import {
   LOAD_USER_SUCCESS,
   LOGOUT_USER_FAIL,
   LOGOUT_USER_SUCCESS,
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_FAIL,
+  UPDATE_PROFILE_RESET,
+  UPDATE_PROFILE_IMAGE_REQUEST,
+  UPDATE_PROFILE_IMAGE_SUCCESS,
+  UPDATE_PROFILE_IMAGE_FAIL,
   CLEAR_ERRORS,
 } from '../constant/userConstant'
 
@@ -59,6 +66,78 @@ export const userReducer = (state = { user: {} }, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+
+export const profileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      }
+    case UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload,
+        success: action.payload,
+      }
+
+    case UPDATE_PROFILE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        success: false,
+      }
+    case UPDATE_PROFILE_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
+    default:
+      return state
+  }
+}
+export const profileImageReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_PROFILE_IMAGE_REQUEST:
+      return {
+        ...state,
+        loadings: true,
+      }
+    case UPDATE_PROFILE_IMAGE_SUCCESS:
+      return {
+        ...state,
+        loadings: false,
+        isUpdateds: action.payload,
+      }
+
+    case UPDATE_PROFILE_IMAGE_FAIL:
+      return {
+        ...state,
+        loadings: false,
+        errors: action.payload,
+      }
+    case UPDATE_PROFILE_RESET:
+      return {
+        ...state,
+        isUpdateds: false,
       }
     case CLEAR_ERRORS:
       return {
