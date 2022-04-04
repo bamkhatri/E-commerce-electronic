@@ -13,15 +13,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { UPDATE_PROFILE_RESET } from '../../constant/userConstant'
-import MetaData from '../Layout/MataData'
+import MetaData from '../Layout/MetaData'
 
 const UpdateProfile = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user } = useSelector((state) => state.user)
-  const { error, isUpdated, loading, success } = useSelector(
-    (state) => state.profile
-  )
+  const { error, isUpdated, loading } = useSelector((state) => state.profile)
   const { errors, isUpdateds, loadings } = useSelector(
     (state) => state.profileImage
   )
@@ -96,10 +94,6 @@ const UpdateProfile = () => {
     myForm.set('email', email)
     // myForm.set('avatar', avatar)
     dispatch(updateProfile(myForm))
-    if (success === true) {
-      myForm.set('avatar', avatar)
-      dispatch(updateProfileImage(myForm))
-    }
   }
   const updateProfileImages = (e) => {
     e.preventDefault()

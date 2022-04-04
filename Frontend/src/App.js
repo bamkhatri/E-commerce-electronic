@@ -17,6 +17,7 @@ import UserOptions from './Components/Layout/Header/UserOptions'
 import Profile from './Components/User/Profile'
 import ProtectedRoute from './Components/Route/ProtectedRoute'
 import UpdateProfile from './Components/User/UpdateProfile'
+import UpdatePassword from './Components/User/UpdatePassword.js'
 import Orders from './Components/User/Orders'
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path='/' element={<ProtectedRoute />}>
           <Route path='/account' element={<Profile />} />
           <Route path='/me/update' element={<UpdateProfile />} />
+          <Route path='/me/password' element={<UpdatePassword />} />
           <Route path='/orders' element={<Orders />} />
         </Route>
       </Routes>
