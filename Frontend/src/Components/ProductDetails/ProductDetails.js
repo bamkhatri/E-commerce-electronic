@@ -8,7 +8,7 @@ import ReactStars from 'react-rating-stars-component'
 import ReviewCard from './ReviewCard'
 import Loader from '../Layout/Loader/Loader'
 import { toast } from 'react-toastify'
-import MetaData from '../Layout/MataData'
+import MetaData from '../Layout/MetaData'
 
 const ProductDetails = () => {
   const { id } = useParams()

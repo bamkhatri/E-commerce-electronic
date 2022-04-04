@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import MetaData from '../Layout/MataData'
+import MetaData from '../Layout/MetaData'
 import './Profile.css'
 
 import { useSelector } from 'react-redux'
@@ -46,7 +46,7 @@ const Profile = () => {
                 </div>
                 <div className='profileLink'>
                   <Link to='/orders'>My Orders</Link>
-                  <Link to='/password/update'>Change Password</Link>
+                  <Link to='/me/password'>Change Password</Link>
                 </div>
               </div>
             </div>

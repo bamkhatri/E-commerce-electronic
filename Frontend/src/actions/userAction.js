@@ -16,6 +16,9 @@ import {
   UPDATE_PROFILE_IMAGE_REQUEST,
   UPDATE_PROFILE_IMAGE_SUCCESS,
   UPDATE_PROFILE_IMAGE_FAIL,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAIL,
   CLEAR_ERRORS,
 } from '../constant/userConstant'
 import axios from 'axios'
@@ -95,6 +98,7 @@ export const updateProfile = (userData) => async (dispatch) => {
     })
   }
 }
+
 export const updateProfileImage = (userData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PROFILE_IMAGE_REQUEST })
@@ -122,4 +126,21 @@ export const updateProfileImage = (userData) => async (dispatch) => {
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS })
+}
+
+export const updatePassword = (userData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_PASSWORD_REQUEST })
+
+    const config = { headers: { 'Content-Type': 'application/json' } }
+
+    const { data } = await axios.put(`/api/v1/me/password`, userData, config)
+
+    dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success })
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    })
+  }
 }

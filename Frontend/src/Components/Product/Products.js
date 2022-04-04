@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom'
 import Pagination from 'react-js-pagination'
 import Slider from '@mui/material/Slider'
 import { Typography } from '@mui/material'
-import MetaData from '../Layout/MataData'
+import MetaData from '../Layout/MetaData'
 
 const categories = [
   'Laptop',
