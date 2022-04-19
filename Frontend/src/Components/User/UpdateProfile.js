@@ -57,7 +57,6 @@ const UpdateProfile = () => {
     if (isUpdated) {
       toast.success('Profile Updated Successfully')
       dispatch(loadUser())
-
       navigate('/account')
 
       dispatch({
