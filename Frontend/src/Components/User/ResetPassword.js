@@ -1,28 +1,29 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import './UpdatePassword.css'
+import './ResetPassword.css'
 import LockOpen from '@mui/icons-material/LockOpen'
-import VpnKey from '@mui/icons-material/VpnKey'
 import MetaData from '../Layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { clearErrors, updatePassword } from '../../actions/userAction'
-import { useNavigate } from 'react-router-dom'
-import { UPDATE_PASSWORD_RESET } from '../../constant/userConstant'
+import { clearErrors, resetPassword } from '../../actions/userAction'
+import { useNavigate, useParams } from 'react-router-dom'
+
 import Loader from '../Layout/Loader/Loader'
 
-const UpdatePassword = () => {
-  const [oldPassword, setOldPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
+const ResetPassword = () => {
+  const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [oldPasswordType, setOldPasswordType] = useState('password')
+
   const [newPasswordType, setNewPasswordType] = useState('password')
   const [confirmPasswordType, setConfirmPasswordType] = useState('password')
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { error, loading, isUpdated } = useSelector((state) => state.profile)
+  const { token } = useParams()
+  const { error, loading, success } = useSelector(
+    (state) => state.forgotPassword
+  )
 
   const EyeNew = () => {
     if (newPasswordType === 'password') {
@@ -31,13 +32,7 @@ const UpdatePassword = () => {
       setNewPasswordType('password')
     }
   }
-  const EyeOld = () => {
-    if (oldPasswordType === 'password') {
-      setOldPasswordType('text')
-    } else {
-      setOldPasswordType('password')
-    }
-  }
+
   const EyeConfirm = () => {
     if (confirmPasswordType === 'password') {
       setConfirmPasswordType('text')
@@ -46,30 +41,25 @@ const UpdatePassword = () => {
     }
   }
 
-  const handlePasswordUpdate = (e) => {
+  const handlePasswordReset = (e) => {
     e.preventDefault()
-    const data = {
-      oldPassword,
-      newPassword,
-      confirmPassword,
-    }
-    dispatch(updatePassword(data))
-  }
+    const myForm = new FormData()
 
+    myForm.set('password', password)
+    myForm.set('confirmPassword', confirmPassword)
+    dispatch(resetPassword(token, myForm))
+  }
   useEffect(() => {
     if (error) {
       toast.error(error)
       dispatch(clearErrors())
     }
 
-    if (isUpdated) {
-      toast.success('Profile Updated Successfully')
-      navigate('/account')
-      dispatch({
-        type: UPDATE_PASSWORD_RESET,
-      })
+    if (success) {
+      toast.success(success)
+      navigate('/login')
     }
-  }, [dispatch, error, toast, navigate, isUpdated])
+  }, [dispatch, error, toast, navigate, success])
 
   return (
     <>
@@ -77,39 +67,23 @@ const UpdatePassword = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title='Update Password' />
-          <div className='UpdatePasswordContainer'>
-            <div className='UpdatePasswordBox'>
-              <h4>Change Password</h4>
+          <MetaData title='Reset Password' />
+          <div className='ResetPasswordContainer'>
+            <div className='ResetPasswordBox'>
+              <h4>Resets Password</h4>
               <form
-                className='UpdatePasswordForm'
-                onSubmit={handlePasswordUpdate}
+                className='ResetPasswordForm'
+                onSubmit={handlePasswordReset}
               >
-                <div className='UpdatePasswordName'>
-                  <VpnKey />
-                  <input
-                    type={oldPasswordType}
-                    placeholder='Old Password'
-                    required
-                    name='oldPassword'
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                  />
-                  {oldPasswordType === 'password' ? (
-                    <VisibilityOffIcon onClick={EyeOld} className='eyeIcon' />
-                  ) : (
-                    <VisibilityIcon onClick={EyeOld} className='eyeIcon' />
-                  )}
-                </div>
-                <div className='UpdatePasswordName'>
+                <div className='ResetPasswordName'>
                   <LockOpen />
                   <input
                     type={newPasswordType}
                     placeholder='New Password'
                     required
-                    name='newPassword'
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    name='password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   {newPasswordType === 'password' ? (
                     <VisibilityOffIcon onClick={EyeNew} className='eyeIcon' />
@@ -117,7 +91,7 @@ const UpdatePassword = () => {
                     <VisibilityIcon onClick={EyeNew} className='eyeIcon' />
                   )}
                 </div>
-                <div className='UpdatePasswordEmail'>
+                <div className='ResetPasswordEmail'>
                   <LockOpen />
                   <input
                     type={confirmPasswordType}
@@ -138,8 +112,8 @@ const UpdatePassword = () => {
                 </div>
                 <input
                   type='submit'
-                  value='Change '
-                  className='UpdatePasswordBtn'
+                  value='Update'
+                  className='ResetPasswordBtn'
                   disabled={loading ? true : false}
                 />
               </form>
@@ -151,4 +125,4 @@ const UpdatePassword = () => {
   )
 }
 
-export default UpdatePassword
+export default ResetPassword
