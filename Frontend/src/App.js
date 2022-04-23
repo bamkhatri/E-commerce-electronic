@@ -21,6 +21,9 @@ import UpdatePassword from './Components/User/UpdatePassword.js'
 import Orders from './Components/User/Orders'
 import ForgotPassword from './Components/User/ForgotPassword'
 import ResetPassword from './Components/User/ResetPassword'
+import Cart from './Components/Cart/Cart'
+import Shipping from './Components/Cart/Shipping'
+import ConfirmOrder from './Components/Cart/ConfirmOrder'
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user)
@@ -46,12 +49,15 @@ function App() {
         <Route path='/login' element={<LoginSignup />} />
         <Route path='/password/forgot' element={<ForgotPassword />} />
         <Route path='/password/reset/:token' element={<ResetPassword />} />
+        <Route path='/cart' element={<Cart />} />
         {/* All Protected Routes comes below here */}
         <Route path='/' element={<ProtectedRoute />}>
           <Route path='/account' element={<Profile />} />
           <Route path='/me/update' element={<UpdateProfile />} />
           <Route path='/me/password' element={<UpdatePassword />} />
           <Route path='/orders' element={<Orders />} />
+          <Route path='/login/shipping' element={<Shipping />} />
+          <Route path='/order/confirm' element={<ConfirmOrder />} />
         </Route>
       </Routes>
       <Footer />

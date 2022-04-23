@@ -6,19 +6,30 @@ import PersonIcon from '@mui/icons-material/Person'
 import LogoutIcon from '@mui/icons-material/Logout'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../../actions/userAction'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { toast } from 'react-toastify'
 import profile from '../../../image/profile.png'
 
 const UserOptions = ({ user }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { cartItems } = useSelector((state) => state.cart)
   const [open, setOpen] = useState(false)
 
   const options = [
     { icon: <ListAltIcon />, name: 'Orders', func: orders },
     { icon: <PersonIcon />, name: 'Profile', func: account },
+    {
+      icon: (
+        <ShoppingCartIcon
+          style={{ color: cartItems.length > 0 ? 'tomato' : 'unset' }}
+        />
+      ),
+      name: `Cart(${cartItems.length}) `,
+      func: cart,
+    },
     { icon: <LogoutIcon />, name: 'Logout', func: logoutUser },
   ]
   if (user.role === 'admin') {
@@ -43,6 +54,9 @@ const UserOptions = ({ user }) => {
   function account() {
     navigate('/account')
   }
+  function cart() {
+    navigate('/cart')
+  }
   return (
     <Fragment>
       <SpeedDial
@@ -66,6 +80,7 @@ const UserOptions = ({ user }) => {
             tooltipTitle={item.name}
             onClick={item.func}
             key={item.name}
+            tooltipOpen={window.innerWidth <= 600 ? true : false}
           />
         ))}
       </SpeedDial>

@@ -4,7 +4,7 @@ import Loader from '../Layout/Loader/Loader'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import FaceIcon from '@mui/icons-material/Face'
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { clearErrors, login, register } from '../../actions/userAction'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 const LoginSignup = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const { loading, error, isAuthenticated } = useSelector((state) => state.user)
 
@@ -46,15 +47,17 @@ const LoginSignup = () => {
     }
   }
 
+  const redirect = location.search ? location.search.split('=')[1] : '/account'
+
   useEffect(() => {
     if (error) {
       toast.error(error)
       dispatch(clearErrors())
     }
     if (isAuthenticated) {
-      navigate('/account')
+      navigate(redirect)
     }
-  }, [error, isAuthenticated, navigate, dispatch])
+  }, [error, isAuthenticated, navigate, dispatch, redirect])
 
   const loginSubmit = (e) => {
     e.preventDefault()
